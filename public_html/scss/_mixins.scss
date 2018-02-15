@@ -1,0 +1,68 @@
+@mixin flexCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin size($width, $height: auto) {
+  width: $width;
+  height: $height;
+}
+
+/********
+***Fonts*
+*********/
+
+@mixin LatoRegular{
+  font-family: "LatoRegular", sans-serif;
+}
+
+@mixin LatoBold{
+  font-family: "LatoBold", sans-serif;
+}
+
+@mixin SlimJoe{
+  font-family: "SlimJoe", sans-serif;
+}
+
+@mixin BigJohn{
+  font-family: "BigJohn", sans-serif;
+}
+
+/********
+***Media*
+*********/
+
+@mixin large{
+  @media screen and (max-width: 1210px){
+    @content;
+  }
+}
+
+@mixin medium{
+  @media screen and (max-width: 992px){
+    @content;
+  }
+}
+
+@mixin small{
+  @media screen and (max-width: 768px){
+    @content;
+  }
+}
+
+@mixin exSmall{
+  @media screen and (max-width: 451px){
+    @content;
+  }
+}
+
+@mixin responsive($width){
+  @media screen and (max-width: $width){
+    @content;
+  }
+}
+
+
+
+

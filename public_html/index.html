@@ -9,7 +9,7 @@
 <body>
 
 <!--****************************************************************Header*******************************************-->
-    <header>
+    <header id="header">
         <div class="container">
             <div class="header__nav-row">
                <!-- *********Logo**********-->
@@ -21,12 +21,20 @@
                 <!-- *********Nav**********-->
                 <nav class="nav">
                     <ul class="nav__list">
-                        <li class="nav__item"><a href="#" class="nav__link">Accueil</a></li>
-                        <li class="nav__item"><a href="#" class="nav__link">Portfolio</a></li>
-                        <li class="nav__item"><a href="#" class="nav__link">About</a></li>
-                        <li class="nav__item"><a href="#" class="nav__link">Contact</a></li>
+                        <li class="nav__item"><a href="#header" class="nav__link">Accueil</a></li>
+                        <li class="nav__item"><a href="#portfolio" class="nav__link">Portfolio</a></li>
+                        <li class="nav__item"><a href="#about" class="nav__link">About</a></li>
+                        <li class="nav__item"><a href="#contact" class="nav__link">Contact</a></li>
                     </ul>
                 </nav><!-- *********/Nav**********-->
+
+                <button class="menu-btn" id="menu-btn">
+                    <svg fill="#ffffff" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </button>
+
             </div>
             <!-- *********Titles**********-->
             <div class="header__text">
@@ -41,7 +49,7 @@
     <main>
         <div class="container">
             <!--************Filter*****************-->
-            <div class="filter">
+            <div class="filter" id="portfolio">
                 <ul class="filter__list">
                     <li class="filter__item"><a href="#" class="filter__link">Tous les projets</a></li>
                     <li class="filter__item"><a href="#" class="filter__link">Webdesign</a></li>
@@ -51,10 +59,10 @@
                 </ul>
             </div><!--************/Filter*****************-->
             <div class="project__wrapper">
-                <div class="project__wrapper-col">
+                <div class="project__wrapper-col project__wrapper-col--thin">
                     <div class="project__item">
                         <a href="#" class="project__link">
-                            <img src="img/multiple_items.JPG" alt="">
+                            <img class="project__img" src="img/multiple_items.JPG" alt="">
                             <div class="project__descr">
                                 <div class="project__descr-wrap">
                                     <p class="project__descr-title">Lorem ipsum</p>
@@ -65,7 +73,7 @@
                     </div>
                     <div class="project__item">
                         <a href="#" class="project__link">
-                            <img src="img/multiple_items_3.jpg" alt="">
+                            <img class="project__img" src="img/multiple_items_3.jpg" alt="">
                             <div class="project__descr">
                                 <div class="project__descr-wrap">
                                     <p class="project__descr-title">Forest app</p>
@@ -75,10 +83,10 @@
                         </a>
                     </div>
                 </div>
-                <div class="project__wrapper-col">
+                <div class="project__wrapper-col project__wrapper-col--wide">
                     <div class="project__item">
                         <a href="#" class="project__link">
-                            <img src="img/multiple_items_2.jpg" alt="">
+                            <img class="project__img" src="img/multiple_items_2.jpg" alt="">
                             <div class="project__descr">
                                 <div class="project__descr-wrap">
                                     <p class="project__descr-title">Lorem ipsum</p>
@@ -89,7 +97,7 @@
                     </div>
                     <div class="project__item">
                         <a href="#" class="project__link">
-                            <img src="img/multiple_items_4.JPG" alt="">
+                            <img class="project__img" src="img/multiple_items_4.JPG" alt="">
                             <div class="project__descr">
                                 <div class="project__descr-wrap">
                                     <p class="project__descr-title">lorem</p>
@@ -103,7 +111,7 @@
             </div><!--************/Filter*********-->
         </div>
         <!--**************About me*****************-->
-        <div class="about-me">
+        <div class="about-me" id="about">
             <div class="container">
                 <div class="about-me__wrapper">
                     <h3 class="about-me__title">Michel Dupont</h3>
@@ -121,7 +129,7 @@
         </div><!--**************/About me*****************-->
         <!--****************Form***********************-->
         <div class="container">
-            <form class="form" action="#">
+            <form class="form" action="#" id="contact">
                 <div class="form__label"><h3 class="form__title">Me contacter</h3></div>
                 <div class="form__name">
                     <label for="name" class="form__name-label"></label>
@@ -170,8 +178,14 @@
                             </a>
                         </li>
                     </ul>
-                </div
+                </div>
             </div>
         </div>
     </footer>
+
+    <div class="overlay"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="js/script.custom.js"></script>
+
 </body>
+

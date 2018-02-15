@@ -1,32 +1,37 @@
 
-/**********Fonts**********/
-@import "fonts.css";
+//********
+//***Fonts**
+//*********
+@import "fonts";
+@import "mixins";
 
-.LatoRegular(){
-  font-family: "LatoRegular", sans-serif;
-}
-
-.LatoBold(){
-  font-family: "LatoBold", sans-serif;
-}
-
-.SlimJoe(){
-  font-family: "SlimJoe", sans-serif;
-}
-
-.BigJohn(){
-  font-family: "BigJohn", sans-serif;
-}
 
 //********
-//***/Fonts**
+//***Adjustment**
 //*********
 
 body{
   margin: 0;
+  display: flex;
+  flex-flow: column nowrap;
+  @include LatoRegular;
 }
 *{
   box-sizing: border-box;
+}
+
+.overlay {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  display: none;
+  background: rgba(0, 0, 0, .4);
+}
+
+.overlay--active {
+  display: block;
 }
 
 //********
@@ -42,24 +47,78 @@ header{
 .container{
   margin: 0 auto;
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  width: 1140px;
+  flex-flow: row wrap;
+  max-width: 1140px;
+
+  @include responsive(1230px){
+    width: 1024px;
+  }
+
+  @include responsive(1100px){
+    width: 970px;
+  }
+
+  @include medium{
+    width: 750px;
+  }
+
+  @include small{
+    width: auto;
+  }
 }
+
 .header__nav-row{
-  width: 1140px;
+  width: 100%;
   display: flex;
   padding-top: 35px;
   flex-direction: row;
   justify-content: space-between;
   flex-wrap: wrap;
 }
+
+.logo{
+  @include medium{
+    padding-left: 20px;
+  }
+}
+
+//**************
+//***Navigatin**
+//**************
+
+.menu-btn{
+  padding: 0;
+  background: none;
+  border: none;
+  outline: none;
+  @include size(40px, 40px);
+  @include flexCenter;
+  display: none;
+
+  @include responsive(700px){
+    display: flex;
+    margin: 30px 10px 0 0;
+  }
+}
+
 .nav {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 550px;
+  max-width: 550px;
   flex-wrap: wrap;
+  z-index: 5;
+  transition: transform .2s ease-in-out;
+  @include responsive(700px){
+    will-change: transform;
+    position: fixed;
+    top: 0;
+    left: 0;
+    @include size(230px, 100vh);
+    background: #48bf72;
+    transform: translateX(-100%);
+  }
+
   &__list{
     display: flex;
     flex-direction: row;
@@ -70,15 +129,40 @@ header{
     padding: 0;
     margin: 0;
     align-self: center;
+
+    @include responsive(700px){
+      flex-flow: column nowrap;
+      align-self: flex-start;
+    }
   }
   &__item{
     padding-left: 40px;
+
+    @include medium{
+      padding: 0 20px;
+    }
+
+    @include responsive(700px){
+      padding: 0;
+    }
+
   }
   &__link{
     text-decoration: none;
     color: #ffffff;
-    .LatoBold;
+    @include LatoBold;
     font-size: 16px;
+    @include responsive(700px){
+      font-size: 20px;
+      padding: 20px ;
+      display: block;
+      width: 100%;
+      &:active:before, &:active:after{
+        width: 100%;
+        background: #ffffff;
+        height: 1px;
+      }
+    }
     padding-bottom: 5px;
     position: relative;
     &:before,
@@ -101,13 +185,28 @@ header{
     &:hover:after {
       width: 50%;
     }
-    }
+  }
   &__item:not(:last-child):after{
     content: "/";
     padding-left: 40px;
     color: #ffffff;
+
+    @include medium{
+      padding-left: 20px;
+    }
+
+    @include responsive(700px){
+      content: "";
+    }
   }
 }
+
+.nav--active{
+  @include responsive(700px){
+    transform: translateX(0);
+  }
+}
+
 .header__text{
   width: 960px;
   color: #ffffff;
@@ -116,12 +215,29 @@ header{
   &-title{
     margin: 150px 0 20px 0;
     font-size: 46px;
-    .BigJohn;
+    @include BigJohn;
+
+    @include medium{
+      font-size: 28px;
+    }
+
+    @include small{
+      font-size: 22px;
+    }
   }
   &-descr{
     font-size: 30px;
-    .SlimJoe;
+    @include SlimJoe;
     margin-bottom: 50px;
+
+    @include medium{
+      font-size: 20px;
+    }
+
+    @include small{
+      font-size: 16px;
+    }
+
   }
   &-btn{
     color:  #48bf72;
@@ -131,10 +247,19 @@ header{
     padding: 12px 20px ;
     text-decoration: none;
     text-transform: uppercase;
-    .LatoBold;
+    @include LatoBold;
     &:hover{
       color: #ffffff;
       border: 1px solid #ffffff;
+
+      @include small{
+        color: #48bf72;
+        border: 1px solid #48bf72;
+        &:active{
+          color: #ffffff;
+          border: 1px solid #ffffff;
+        }
+      }
     }
   }
 }
@@ -151,32 +276,58 @@ main{
 
 .filter{
   width: 675px;
+  @include medium{
+    width: 100%;
+  }
   margin: 0 auto;
   &__list{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;
+
+    @include medium{
+      justify-content: space-around;
+    }
+
     list-style: none;
     margin: 0 0 50px 0;
     padding: 0;
   }
   &__item{
     border-radius: 2px;
-    background-color:  #eaeaea;
+    background: #eaeaea;
     padding: 10px 15px;
+
+    @include medium{
+      margin: 5px;
+    }
     &:hover{
       background: #48bf72;
       color: #ffffff;
+      @include small{
+        background: #eaeaea;
+        &:active{
+          background: #48bf72;
+        }
+      }
     }
   }
+
+
   &__link{
     text-decoration: none;
     color: #3c4955;
     font-size: 16px;
-    .LatoBold;
+    @include LatoBold;
     &:hover{
       color: #ffffff;
+      @include small{
+        color: #3c4955;
+        &:active{
+          color: #ffffff;
+        }
+      }
     }
   }
 }
@@ -191,22 +342,81 @@ main{
   align-items: flex-start;
   width: 100%;
   margin-bottom: 90px;
+  @include medium{
+    margin-bottom: 40px;
+  }
+  @include small{
+    justify-content: space-around;
+    margin-bottom: 30px;
+  }
+
   &-col{
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
     justify-content: space-around;
-    min-height: 869px;
   }
 }
+
+.project__wrapper-col--thin{
+  width: 39%;
+
+  @include small{
+    width: auto;
+  }
+}
+
+.project__wrapper-col--wide{
+  width: 57%;
+
+  @include small{
+    width: auto;
+  }
+}
+
+.project__img{
+  width: 100%;
+
+  @include small{
+    width: 450px;
+  }
+
+  @include exSmall{
+    width: 350px;
+  }
+}
+
 .project__item{
   line-height:0;
   position: relative;
+  margin-bottom: 45px;
+
+  @include medium{
+    margin-bottom: 30px;
+  }
+
+  @include small{
+    margin-bottom: 25px;
+  }
+
   &:hover .project__descr{
     display: flex;
-    transition: all .2s ease-in-out;;
+    transition: all .2s ease-in-out;
+
+    @include small{
+      display: none;
+    }
   }
 }
+.project__link{
+  &:active .project__descr{
+    @include small{
+      display: flex;
+      transition: all .2s ease-in-out;
+    }
+  }
+}
+
 .project__descr{
   position: absolute;
   overflow: hidden;
@@ -223,12 +433,12 @@ main{
     text-align: center;
   }
   &-title{
-    .LatoBold;
+    @include LatoBold;
     font-size: 30px;
     line-height: 30px;
   }
   &-text{
-    .LatoRegular;
+    @include LatoRegular;
     font-size: 16px;
 
   }
@@ -244,18 +454,28 @@ main{
   &__wrapper{
     width: 50%;
     margin-left: 50%;
+
+    @include medium{
+      margin-left: 30%;
+    }
+
+    @include small{
+      width: 430px;
+      margin: 0 auto;
+      text-align: center;
+    }
   }
   &__title{
     margin: 0;
     padding: 0;
     color: #ffffff;
-    .LatoBold;
+    @include LatoBold;
     font-size: 30px;
     line-height: 32px;
   }
   &__descr{
     margin: 0;
-    .LatoRegular;
+    @include LatoRegular;
     font-size: 22px;
     color: #ffffff;
     line-height: 32px;
@@ -264,7 +484,10 @@ main{
     margin: 32px 0;
     display: block;
     width: 420px;
-    .LatoRegular;
+    @include small{
+      width: auto;
+    }
+    @include LatoRegular;
     font-size: 16px;
     line-height: 25px;
     color: #ffffff;
@@ -274,7 +497,7 @@ main{
     text-decoration: none;
   }
   &__btn{
-    .LatoBold;
+    @include LatoBold;
     font-size: 14px;
     line-height: 25px;
     padding: 6px 20px;
@@ -282,9 +505,20 @@ main{
     border-radius: 3px;
     width: 153px;
     text-transform: uppercase;
+
+    @include medium{
+      border: 2px solid #48bf72;
+      color: #48bf72;
+      margin: 0 auto;
+    }
     &:hover{
       border: 2px solid #48bf72;
       color: #48bf72;
+    }
+
+    &:active{
+      border: 2px solid #ffffff;
+      color: #ffffff;
     }
 
   }
@@ -297,7 +531,18 @@ main{
   flex-wrap: wrap;
   flex-direction: row;
   justify-content: space-between;
-  width: 696px;
+  width: 61%;
+  @include responsive(1230px){
+    width: 68%;
+  }
+  @include responsive(1100px){
+    width: 71.8%;
+  }
+
+  @include  responsive(990px){
+    width: 92.8%;
+  }
+
   min-height: 510px;
   margin: 0 auto;
   margin-bottom: 55px;
@@ -305,8 +550,11 @@ main{
     width: 100%;
     text-align: center;
     color: #48bf72;
-    .BigJohn;
+    @include BigJohn;
     font-size: 26px;
+    @include small{
+      font-size: 22px;
+    }
     line-height: 25px;
   }
   &__title{
@@ -315,7 +563,11 @@ main{
   &__name{
     border-radius: 3px;
     border: 2px solid #3c4955;
-    width: 331px;
+    width: calc(50% - 16px);
+    @include small{
+      width: 100%;
+    }
+
     height: 46px;
     position: relative;
     &-label{
@@ -327,9 +579,9 @@ main{
     }
   }
   &__input{
-    background-color: #f1f1f1;
+    background: #f1f1f1;
     padding: 20px 25px;
-    width: 279px;
+    width: calc(100% - 48px);
     height: 42px;
     border: none;
     margin-left: 48px;
@@ -341,7 +593,10 @@ main{
   &__email{
     border-radius: 3px;
     border: 2px solid #3c4955;
-    width: 331px;
+    width: calc(50% - 16px);
+    @include small{
+      width: 100%;
+    }
     height: 46px;
     position: relative;
     &-label{
@@ -357,9 +612,8 @@ main{
     background: #48bf72;
     color: #ffffff;
     text-transform: uppercase;
-    .LatoBold;
+    @include LatoBold;
     font-size: 14px;
-    /*line-height: 25px;*/
     cursor: pointer;
     border: none;
   }
@@ -373,7 +627,7 @@ main{
       background-color: #f1f1f1;
       padding: 20px 25px;
       border: none;
-      width: 644px;
+      width: calc(100% - 48px);
       height: 100%;
       margin-left: 48px;
       &:focus{
@@ -397,7 +651,6 @@ main{
 footer{
   background:  #3c4955;
   width: 100%;
-
 }
 
   .footer{
@@ -405,11 +658,18 @@ footer{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    @include small{
+      flex-direction: column;
+      justify-content: space-around;
+    }
     align-items: center;
     height: 201px;
     &__copyright{
-      .LatoBold;
+      @include LatoBold;
       font-size: 16px;
+      @include small{
+        font-size: 14px;
+      }
       line-height: 25px;
       color: #ffffff;
       &-link{
